@@ -52,12 +52,12 @@ input:not([type="range"]):not([type="checkbox"]):not([type="file"]), select { pa
 .measure input { max-width: 94px; font-size: 20px !important; font-variant-numeric: tabular-nums; }
 .measure span { color: var(--muted); font-size: 13px; }
 input[type="range"] { width: 100%; margin: 14px 0 0; accent-color: var(--accent); }
-/* Keep the Y rail one color on both sides of the thumb in all positions. */
-#offset-range { appearance: none; -webkit-appearance: none; height: 20px; background: transparent; }
-#offset-range::-webkit-slider-runnable-track { height: 5px; background: #56647a; border-radius: 3px; }
-#offset-range::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 15px; height: 15px; margin-top: -5px; border: 0; border-radius: 50%; background: var(--accent); }
-#offset-range::-moz-range-track, #offset-range::-moz-range-progress { height: 5px; background: #56647a; border-radius: 3px; }
-#offset-range::-moz-range-thumb { width: 15px; height: 15px; border: 0; border-radius: 50%; background: var(--accent); }
+/* Both sliders share the same geometry and a uniform rail color. */
+input[type="range"] { appearance: none; -webkit-appearance: none; height: 20px; background: transparent; }
+input[type="range"]::-webkit-slider-runnable-track { height: 5px; background: #56647a; border-radius: 3px; }
+input[type="range"]::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 15px; height: 15px; margin-top: -5px; border: 0; border-radius: 50%; background: var(--accent); }
+input[type="range"]::-moz-range-track, input[type="range"]::-moz-range-progress { height: 5px; background: #56647a; border-radius: 3px; }
+input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; border: 0; border-radius: 50%; background: var(--accent); }
 .toggles { display: flex; gap: 16px; margin: 22px 0; flex-wrap: wrap; }
 .check { display: flex; align-items: center; gap: 6px; font-size: 13px; margin: 0; }
 .check input { accent-color: var(--accent); width: 16px; height: 16px; }
