@@ -131,13 +131,13 @@ function draw() {
   const originX = (width - (right - left) * zoom) / 2 - left * zoom;
   const originY = (height - (bottom - top) * zoom) / 2 - top * zoom;
   $('zoom-label').textContent = `表示倍率 ${Number(zoom.toFixed(2))}×`;
-  ctx.strokeStyle = '#b3c8e5';
+  ctx.strokeStyle = '#62738b';
   ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.moveTo(24, originY);
   ctx.lineTo(width - 24, originY);
   ctx.stroke();
-  ctx.fillStyle = '#526681';
+  ctx.fillStyle = '#c1cddd';
   ctx.font = '11px "Yu Gothic UI", sans-serif';
   ctx.fillText('基準の下端 / Y = 0', 16, originY + 17);
   // 1. Reference text remains at vanilla size and position as the head changes.
@@ -167,7 +167,7 @@ function draw() {
     ctx.drawImage(face, x, y, size * zoom, size * zoom);
   }
   ctx.setLineDash([4, 3]);
-  ctx.strokeStyle = '#526681';
+  ctx.strokeStyle = '#b4c1d3';
   ctx.strokeRect(originX, originY - 8 * zoom, 8 * zoom, 8 * zoom);
   ctx.setLineDash([]);
 }
