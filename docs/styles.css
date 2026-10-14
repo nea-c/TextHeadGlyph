@@ -26,6 +26,9 @@ button, .download { transition: background-color .12s; }
 .version { font-size: 13px; color: var(--muted); }
 main { padding: 24px 32px 32px; }
 .page-tools { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+.page-links { display: flex; align-items: center; gap: 12px; }
+.github-link { display: grid; place-items: center; width: 40px; height: 40px; flex-shrink: 0; color: var(--muted); border-radius: 6px; }
+.github-link:hover { color: var(--ink); background: #29364a; }
 .page-tools .download { padding: 10px 16px; font-size: 13px; }
 .intro { display: flex; justify-content: space-between; align-items: center; gap: 28px; padding: 6px 0 32px; }
 h1 { font-size: clamp(28px, 3.5vw, 40px); line-height: 1.45; letter-spacing: -.04em; margin: 0 0 16px; }
