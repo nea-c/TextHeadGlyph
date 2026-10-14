@@ -6,8 +6,8 @@
     <meta name="theme-color" content="#111822">
     <meta name="description" content="Minecraft Java 26.2の頭表示をサイズ・Yオフセットで調整するリソースパックとコマンド生成ツール。">
     <title>TextHeadGlyph — 頭表示のコマンド生成</title>
-    <link rel="stylesheet" href="styles.css?v=controls-2">
-    <script type="module" src="app.mjs?v=controls-2"></script>
+    <link rel="stylesheet" href="styles.css?v=controls-3">
+    <script type="module" src="app.mjs?v=controls-3"></script>
   </head>
   <body>
     <main>
@@ -31,10 +31,10 @@
             <div class="input-row measure"><input id="size" name="size" type="number" min="1" max="255" step="1" value="8" required><span>× <output id="size-echo">8</output> GUI単位</span></div>
             <input id="size-range" type="range" min="1" max="255" value="8" aria-label="サイズのスライダー">
 
-            <div class="number-label"><label for="offset">Yオフセット</label><span>−127〜128</span></div>
-            <div class="input-row measure"><input id="offset" name="offset" type="number" min="-127" max="128" step="1" value="0" required><span id="offset-direction">元の位置</span></div>
-            <input id="offset-range" type="range" min="-127" max="128" value="0" aria-label="Yオフセットのスライダー">
-            <p class="field-note">正で上、負で下。0で元の位置。</p>
+            <div class="number-label"><label for="offset">Yオフセット</label><span>−128〜127</span></div>
+            <div class="input-row measure"><input id="offset" name="offset" type="number" min="-128" max="127" step="1" value="0" required><span id="offset-direction">元の位置</span></div>
+            <input id="offset-range" type="range" min="-128" max="127" value="0" aria-label="Yオフセットのスライダー">
+            <p class="field-note">正で下、負で上。0で元の位置。</p>
 
             <div class="toggles">
               <label class="check"><input id="shadow" name="shadow" type="checkbox" checked>影を表示</label>
