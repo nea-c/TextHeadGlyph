@@ -1,4 +1,4 @@
-import { generate } from './converter.mjs';
+import { generate } from './converter.mjs?v=controls-2';
 
 const $ = id => document.getElementById(id);
 const form = $('settings');
@@ -84,7 +84,7 @@ function update() {
     $('body-color').textContent = encoded.color;
     $('shadow-color').textContent = `${encoded.shadowColor} (${encoded.shadowHex})`;
     $('size-echo').textContent = settings.size;
-    $('offset-direction').textContent = settings.offset === 0 ? '元の位置' : `${settings.offset < 0 ? '上' : '下'}へ${Math.abs(settings.offset)}`;
+    $('offset-direction').textContent = settings.offset === 0 ? '元の位置' : `${settings.offset > 0 ? '上' : '下'}へ${Math.abs(settings.offset)}`;
     $('size-range').value = settings.size;
     $('offset-range').value = settings.offset;
     $('error').hidden = true;
@@ -120,7 +120,8 @@ function draw() {
   canvas.height = Math.round(height * dpr);
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   ctx.imageSmoothingEnabled = false;
-  const { size, offset, shadow } = lastSettings;
+  const { size, offset: upwardOffset, shadow } = lastSettings;
+  const offset = -upwardOffset;
   // Auto-fit both the original glyph and the transformed head, including shadow.
   const textWidth = referenceText ? referenceText.width : 40;
   const left = -textWidth - 4;
