@@ -2,7 +2,9 @@
 
 Minecraft Java Edition 26.2のテキスト内のプレイヤー頭表示を、サイズとYオフセットで調整するリソースパックです。GitHub Pages用のコマンド生成ページを同梱しています。
 
-[コマンド生成ページ](https://nea-c.github.io/TextHeadGlyph/) · [リソパZIP](https://github.com/nea-c/TextHeadGlyph/releases/latest/download/TextHeadGlyph-26.2.zip)
+[コマンド生成ページ](https://nea-c.github.io/TextHeadGlyph/) · [リソパZIP（r1）](https://github.com/nea-c/TextHeadGlyph/releases/download/r1/TextHeadGlyph-26.2.zip)
+
+リリース番号は`r1`、`r2`、`r3`の形式です。シェーダーを変更したときに増やします。READMEの整理や変換ページの変更だけでは増やしません。
 
 ## コマンド生成ページ
 
