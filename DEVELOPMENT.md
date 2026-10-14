@@ -4,7 +4,7 @@
 
 * `resourcepack/`：リソースパックのソース
 * `docs/`：GitHub Pagesで配信する変換ページ
-* `docs/downloads/TextHeadGlyph-26.2.zip`：Releaseへ添付する配布ZIP
+* `dist/`：Releaseへ添付する配布ZIPの生成先（Git管理対象外）
 * `tests/`：コマンド生成のテスト
 
 ## ローカル起動
@@ -34,7 +34,7 @@ npm test
 ./scripts/build-pack.ps1
 ```
 
-生成したZIPをGitHub Releaseに添付します。  
+生成した`dist/TextHeadGlyph-26.2.zip`をGitHub Releaseに添付します。  
 シェーダーを変更したときに`r2`、`r3`のようにリリース番号を増やします。READMEの整理や変換ページだけの変更では増やしません。
 
 ページのダウンロード先は`docs/index.html`、READMEのリリースリンクは`README.md`を更新します。  
