@@ -1,4 +1,4 @@
-import { generate } from './converter.mjs?v=json-copy-6';
+import { generate } from './converter.mjs?v=component-copy-7';
 
 const $ = id => document.getElementById(id);
 const form = $('settings');
@@ -11,6 +11,7 @@ let skin = null;
 let requestId = 0;
 let valid = true;
 let currentJSON = '';
+let currentComponent = '';
 let lastSettings = { size: 8, offset: 0, shadow: true, hat: true };
 let referenceText = null;
 let referenceShadow = null;
@@ -84,6 +85,7 @@ function update() {
     const encoded = generate(settings);
     $('command').value = encoded.command;
     currentJSON = encoded.json;
+    currentComponent = encoded.component;
     $('body-color').textContent = encoded.color;
     $('shadow-color').textContent = `${encoded.shadowColor} (${encoded.shadowHex})`;
     $('size-echo').textContent = settings.size;
@@ -99,12 +101,14 @@ function update() {
     $('error').hidden = false;
     $('command').value = '';
     currentJSON = '';
+    currentComponent = '';
     $('body-color').textContent = '—';
     $('shadow-color').textContent = '—';
     valid = false;
   }
   $('copy').disabled = !valid;
   $('copy-json').disabled = !valid;
+  $('copy-component').disabled = !valid;
   draw();
 }
 
@@ -243,22 +247,24 @@ $('skin-file').addEventListener('change', async event => {
   try { await setSkin(url, `${file.name}を表示しています。`); }
   finally { URL.revokeObjectURL(url); event.target.value = ''; }
 });
-async function copyText(text, jsonOnly = false) {
+async function copyText(text, label = 'コマンド') {
   if (!valid) return;
+  const componentOnly = label !== 'コマンド';
   try {
     await navigator.clipboard.writeText(text);
     $('json-copy-fallback').hidden = true;
-    $('copy-status').textContent = jsonOnly ? 'JSONをコピーしました。' : 'コマンドをコピーしました。';
+    $('copy-status').textContent = `${label}をコピーしました。`;
   } catch {
-    const field = jsonOnly ? $('json-copy-fallback') : $('command');
-    if (jsonOnly) { field.value = text; field.hidden = false; }
+    const field = componentOnly ? $('json-copy-fallback') : $('command');
+    if (componentOnly) { field.value = text; field.hidden = false; }
     field.focus();
     field.select();
-    $('copy-status').textContent = jsonOnly ? '選択したJSONをCtrl+Cでコピーしてください。' : '選択したコマンドをCtrl+Cでコピーしてください。';
+    $('copy-status').textContent = `選択した${label}をCtrl+Cでコピーしてください。`;
   }
 }
 $('copy').addEventListener('click', () => copyText($('command').value));
-$('copy-json').addEventListener('click', () => copyText(currentJSON, true));
+$('copy-json').addEventListener('click', () => copyText(currentJSON, '正規JSON'));
+$('copy-component').addEventListener('click', () => copyText(currentComponent, 'テキストコンポーネント'));
 new ResizeObserver(draw).observe($('preview-stage'));
 update();
 setSkin('assets/alex.png', '標準Alexを表示しています。');

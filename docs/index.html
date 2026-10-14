@@ -6,8 +6,8 @@
     <meta name="theme-color" content="#111822">
     <meta name="description" content="Minecraft Java 26.2の頭表示をサイズ・Yオフセットで調整するリソースパックとコマンド生成ツール。">
     <title>TextHeadGlyph — 頭表示のコマンド生成</title>
-    <link rel="stylesheet" href="styles.css?v=json-copy-6">
-    <script type="module" src="app.mjs?v=json-copy-6"></script>
+    <link rel="stylesheet" href="styles.css?v=component-copy-7">
+    <script type="module" src="app.mjs?v=component-copy-7"></script>
   </head>
   <body>
     <main>
@@ -64,10 +64,10 @@
       </div>
 
       <section class="command-panel" aria-labelledby="command-title">
-        <div class="panel-heading"><h2 id="command-title">生成コマンド</h2><div class="copy-actions"><button id="copy-json" type="button" class="secondary">JSONをコピー</button><button id="copy" type="button" class="primary">コピー</button></div></div>
+        <div class="panel-heading"><h2 id="command-title">生成コマンド</h2><div class="copy-actions"><button id="copy-json" type="button" class="secondary">正規JSONをコピー</button><button id="copy-component" type="button" class="secondary">テキストコンポーネントをコピー</button><button id="copy" type="button" class="primary">コピー</button></div></div>
         <p id="error" class="error" role="alert" hidden></p>
         <textarea id="command" readonly rows="3" spellcheck="false" aria-label="生成されたMinecraftコマンド"></textarea>
-        <textarea id="json-copy-fallback" readonly rows="2" spellcheck="false" aria-label="コピー用JSON" hidden></textarea>
+        <textarea id="json-copy-fallback" readonly rows="2" spellcheck="false" aria-label="コピー用テキスト" hidden></textarea>
         <div class="encoding"><span>本体色 <code id="body-color">#fe0880</code></span><span>影色 <code id="shadow-color">−194432</code></span><span id="copy-status" role="status"></span></div>
       </section>
 
