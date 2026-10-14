@@ -2,15 +2,17 @@
 
 Minecraft Java Edition 26.2のテキスト内のプレイヤー頭表示を、サイズとYオフセットで調整するリソースパックです。GitHub Pages用のコマンド生成ページを同梱しています。
 
-[コマンド生成ページ](https://nea-c.github.io/TextHeadGlyph/) · [リソパZIP](https://nea-c.github.io/TextHeadGlyph/downloads/TextHeadGlyph-26.2.zip)
+[コマンド生成ページ](https://nea-c.github.io/TextHeadGlyph/) · [リソパZIP](https://github.com/nea-c/TextHeadGlyph/releases/latest/download/TextHeadGlyph-26.2.zip)
 
 ## コマンド生成ページ
 
 - サイズ1〜255、Yオフセット−128〜127を1刻みで指定
 - MCID入力、初期値はAlex
+- サイズの初期値は8×8、Yオフセットの初期値は0
 - 標準Alexのスキンを同梱した位置・サイズのプレビュー
 - MCIDからのスキン取得、ローカルのスキンPNG読み込み
 - 顔・帽子・影の表示、元の8×8との比較
+- 点線の左側にバニラフォントの比較用文字を表示
 - Actionbar / Title / Subtitle / Tellrawと表示先の選択
 - コマンドコピーとリソパZIPダウンロード
 
@@ -64,3 +66,5 @@ Node.jsで`npm test`を実行すると、コマンド生成の境界値・整数
 ## アセット
 
 `docs/assets/alex.png`はMinecraft Java Edition 26.2の標準Alexのスキンです。元のパスは`assets/minecraft/textures/entity/player/slim/alex.png`、権利者はMojang Studiosです。本プロジェクトはMinecraftの公式プロジェクトではありません。
+
+`docs/assets/ascii.png`も26.2のバニラアセット（`assets/minecraft/textures/font/ascii.png`）です。権利者はMojang Studiosです。

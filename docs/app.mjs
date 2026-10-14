@@ -10,7 +10,58 @@ const faceCtx = face.getContext('2d');
 let skin = null;
 let requestId = 0;
 let valid = true;
-let lastSettings = { size: 24, offset: 8, shadow: true, hat: true };
+let lastSettings = { size: 8, offset: 0, shadow: true, hat: true };
+let referenceText = null;
+let referenceShadow = null;
+
+// 0. Use vanilla bitmap glyphs and their visible widths, rather than a web font.
+async function loadReferenceText() {
+  const image = new Image();
+  image.src = 'assets/ascii.png';
+  await image.decode();
+  const atlas = document.createElement('canvas');
+  atlas.width = image.naturalWidth;
+  atlas.height = image.naturalHeight;
+  const atlasCtx = atlas.getContext('2d');
+  atlasCtx.drawImage(image, 0, 0);
+  const cell = image.naturalWidth / 16;
+  const scale = 8 / cell;
+  const chars = [...'ABC 123'];
+  const glyphs = chars.map(char => {
+    const code = char.charCodeAt(0);
+    const x = (code % 16) * cell;
+    const y = Math.floor(code / 16) * cell;
+    const pixels = atlasCtx.getImageData(x, y, cell, cell).data;
+    let visibleWidth = 0;
+    for (let column = 0; column < cell; column++) {
+      for (let row = 0; row < cell; row++) {
+        if (pixels[(row * cell + column) * 4 + 3]) visibleWidth = column + 1;
+      }
+    }
+    return { x, y, advance: char === ' ' ? 4 : visibleWidth * scale + 1 };
+  });
+  referenceText = document.createElement('canvas');
+  referenceText.width = Math.ceil(glyphs.reduce((sum, glyph) => sum + glyph.advance, 0));
+  referenceText.height = 8;
+  const textCtx = referenceText.getContext('2d');
+  textCtx.imageSmoothingEnabled = false;
+  let x = 0;
+  for (const glyph of glyphs) {
+    textCtx.drawImage(image, glyph.x, glyph.y, cell, cell, x, 0, 8, 8);
+    x += glyph.advance;
+  }
+  referenceShadow = document.createElement('canvas');
+  referenceShadow.width = referenceText.width;
+  referenceShadow.height = 8;
+  const shadowCtx = referenceShadow.getContext('2d');
+  shadowCtx.drawImage(referenceText, 0, 0);
+  const pixels = shadowCtx.getImageData(0, 0, referenceShadow.width, 8);
+  for (let i = 0; i < pixels.data.length; i += 4) {
+    for (let channel = 0; channel < 3; channel++) pixels.data[i + channel] = Math.round(pixels.data[i + channel] * 63 / 255);
+  }
+  shadowCtx.putImageData(pixels, 0, 0);
+  draw();
+}
 
 function readSettings() {
   return {
@@ -71,12 +122,13 @@ function draw() {
   ctx.imageSmoothingEnabled = false;
   const { size, offset, shadow } = lastSettings;
   // Auto-fit both the original glyph and the transformed head, including shadow.
-  const left = 0;
+  const textWidth = referenceText ? referenceText.width : 40;
+  const left = -textWidth - 4;
   const right = Math.max(8, size + (shadow ? 1 : 0));
   const top = Math.min(-8, offset - size);
   const bottom = Math.max(0, offset + (shadow ? 1 : 0));
   const zoom = Math.min(4, (width - 88) / (right - left), (height - 104) / (bottom - top));
-  const originX = (width - (right - left) * zoom) / 2;
+  const originX = (width - (right - left) * zoom) / 2 - left * zoom;
   const originY = (height - (bottom - top) * zoom) / 2 - top * zoom;
   $('zoom-label').textContent = `表示倍率 ${Number(zoom.toFixed(2))}×`;
   ctx.strokeStyle = '#b3c8e5';
@@ -88,6 +140,13 @@ function draw() {
   ctx.fillStyle = '#526681';
   ctx.font = '11px "Yu Gothic UI", sans-serif';
   ctx.fillText('基準の下端 / Y = 0', 16, originY + 17);
+  // 1. Reference text remains at vanilla size and position as the head changes.
+  if (referenceText) {
+    const textX = originX + left * zoom;
+    const textY = originY - 7 * zoom;
+    if (shadow) ctx.drawImage(referenceShadow, textX + zoom, textY + zoom, textWidth * zoom, 8 * zoom);
+    ctx.drawImage(referenceText, textX, textY, textWidth * zoom, 8 * zoom);
+  }
   composeHead();
   const x = originX;
   const y = originY + (offset - size) * zoom;
@@ -194,3 +253,6 @@ $('copy').addEventListener('click', async () => {
 new ResizeObserver(draw).observe($('preview-stage'));
 update();
 setSkin('assets/alex.png', '標準Alexを表示しています。');
+loadReferenceText().catch(() => {
+  $('skin-status').textContent = '比較用フォントを読み込めませんでした。ページを再読み込みしてください。';
+});

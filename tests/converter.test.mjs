@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { generate } from '../docs/converter.mjs';
 
-test('default: Alex, 24x24, Y+8, actionbar, matching shadow bytes', () => {
-  assert.equal(generate().command, '/title @a actionbar {player:"Alex",hat:true,color:"#fe1888",shadow_color:-190328}');
+test('default: Alex, 8x8, Y0, actionbar, matching shadow bytes', () => {
+  assert.equal(generate().command, '/title @a actionbar {player:"Alex",hat:true,color:"#fe0880",shadow_color:-194432}');
 });
 test('one-unit values: 17x17, Y-3', () => {
   const result = generate({ player: 'NeAc', size: 17, offset: -3 });
@@ -20,7 +20,7 @@ test('extreme size and offset bytes', () => {
   assert.equal(largest.shadowColor, -131073);
 });
 test('shadow off and hat off, tellraw target', () => {
-  assert.equal(generate({ shadow: false, hat: false, target: '@s', mode: 'tellraw' }).command, '/tellraw @s {player:"Alex",hat:false,color:"#fe1888",shadow_color:0}');
+  assert.equal(generate({ shadow: false, hat: false, target: '@s', mode: 'tellraw' }).command, '/tellraw @s {player:"Alex",hat:false,color:"#fe0880",shadow_color:0}');
 });
 test('subtitle and title are generated as title subcommands', () => {
   assert.match(generate({ mode: 'subtitle', target: '@p' }).command, /^\/title @p subtitle /);

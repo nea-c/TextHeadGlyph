@@ -22,7 +22,9 @@ button, .download { transition: background-color .12s; }
 .brand { display: flex; align-items: center; gap: 12px; font-family: "Trebuchet MS", sans-serif; font-size: 22px; font-weight: 700; text-decoration: none; color: var(--ink); }
 .brand-icon { display: grid; place-items: center; width: 36px; height: 36px; background: var(--accent); color: white; border-radius: 8px; font-size: 27px; }
 .version { font-size: 13px; color: var(--muted); }
-main { padding: 18px 32px 48px; }
+main { padding: 24px 32px 32px; }
+.page-tools { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+.page-tools .download { padding: 10px 16px; font-size: 13px; }
 .intro { display: flex; justify-content: space-between; align-items: center; gap: 28px; padding: 6px 0 32px; }
 h1 { font-size: clamp(28px, 3.5vw, 40px); line-height: 1.45; letter-spacing: -.04em; margin: 0 0 16px; }
 .intro p { color: var(--muted); line-height: 1.9; margin: 0; font-size: 15px; }
@@ -91,7 +93,7 @@ footer span { display: block; margin-top: 8px; font-size: 11px; }
   .brand { font-size: 19px; gap: 8px; }
   .intro { flex-direction: column; align-items: flex-start; gap: 22px; }
   .intro p br { display: none; }
-  .download { width: 100%; }
+  .page-tools .download { width: auto; font-size: 12px; padding: 10px 12px; }
   .workspace { grid-template-columns: 1fr; gap: 16px; }
   .controls, .preview-panel, .command-panel { padding: 20px; }
   .preview-stage { min-height: 330px; }
