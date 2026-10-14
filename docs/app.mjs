@@ -1,4 +1,4 @@
-import { generate } from './converter.mjs?v=component-copy-7';
+import { generate } from './converter.mjs?v=hat-default-10';
 
 const $ = id => document.getElementById(id);
 const form = $('settings');

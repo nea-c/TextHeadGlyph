@@ -10,8 +10,8 @@ export function generate({ player = 'Alex', size = 8, offset = 0, shadow = true,
   const payload = hex(size) + hex(encodedY);
   const color = '#fe' + payload;
   const shadowColor = shadow ? (0xfffd0000 | (size << 8) | encodedY) : 0;
-  const component = `{player:"${player}",hat:${Boolean(hat)},color:"${color}",shadow_color:${shadowColor}}`;
-  const json = JSON.stringify({ player, hat: Boolean(hat), color, shadow_color: shadowColor });
+  const component = `{player:"${player}"${hat ? '' : ',hat:false'},color:"${color}",shadow_color:${shadowColor}}`;
+  const json = JSON.stringify({ player, ...(!hat ? { hat: false } : {}), color, shadow_color: shadowColor });
   const prefix = mode === 'tellraw' ? `/tellraw ${target}` : `/title ${target} ${mode}`;
   return { color, shadowColor, shadowHex: shadow ? '0xfffd' + payload : '0x00000000', component, json, command: `${prefix} ${component}` };
 }

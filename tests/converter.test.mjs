@@ -3,10 +3,11 @@ import assert from 'node:assert/strict';
 import { generate } from '../docs/converter.mjs';
 
 test('default: Alex, 8x8, Y0, tellraw, matching shadow bytes', () => {
-  assert.equal(generate().command, '/tellraw @a {player:"Alex",hat:true,color:"#fe0880",shadow_color:-194432}');
+  assert.equal(generate().command, '/tellraw @a {player:"Alex",color:"#fe0880",shadow_color:-194432}');
 });
 test('JSON-only output parses as a text component with correct field types', () => {
-  assert.deepEqual(JSON.parse(generate().json), { player: 'Alex', hat: true, color: '#fe0880', shadow_color: -194432 });
+  assert.deepEqual(JSON.parse(generate().json), { player: 'Alex', color: '#fe0880', shadow_color: -194432 });
+  assert.equal(JSON.parse(generate({ hat: false }).json).hat, false);
 });
 test('one-unit values: 17x17, Y-3 moves upwards', () => {
   const result = generate({ player: 'NeAc', size: 17, offset: -3 });
