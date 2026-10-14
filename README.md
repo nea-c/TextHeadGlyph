@@ -2,7 +2,8 @@
 
 テキスト内に表示するプレイヤーの頭のサイズ・Yオフセットを変更するリソースパック
 
-[TextHeadGlyph](https://textheadglyph.neac.work/)からコマンドを生成できます
+
+[https://textheadglyph.neac.work/](https://textheadglyph.neac.work/)からコマンドを生成できます
 
 ## 最新
 
