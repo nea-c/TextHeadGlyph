@@ -6,8 +6,8 @@
     <meta name="theme-color" content="#111822">
     <meta name="description" content="Minecraft Java 26.2の頭表示をサイズ・Yオフセットで調整するリソースパックとコマンド生成ツール。">
     <title>TextHeadGlyph — 頭表示のコマンド生成</title>
-    <link rel="stylesheet" href="styles.css?v=sliders-5">
-    <script type="module" src="app.mjs?v=controls-3"></script>
+    <link rel="stylesheet" href="styles.css?v=json-copy-6">
+    <script type="module" src="app.mjs?v=json-copy-6"></script>
   </head>
   <body>
     <main>
@@ -41,7 +41,7 @@
               <label class="check"><input id="hat" name="hat" type="checkbox" checked>帽子レイヤーを表示</label>
             </div>
             <div class="select-row">
-              <div><label for="mode">表示方法</label><select id="mode" name="mode"><option value="actionbar">actionbar</option><option value="title">title</option><option value="subtitle">subtitle</option><option value="tellraw">tellraw</option></select></div>
+              <div><label for="mode">表示方法</label><select id="mode" name="mode"><option value="tellraw">tellraw</option><option value="actionbar">actionbar</option><option value="title">title</option><option value="subtitle">subtitle</option></select></div>
               <div><label for="target">表示先</label><select id="target" name="target"><option>@a</option><option>@s</option><option>@p</option><option>@r</option></select></div>
             </div>
             <button id="reset" type="reset" class="text-button">初期設定に戻す</button>
@@ -64,9 +64,10 @@
       </div>
 
       <section class="command-panel" aria-labelledby="command-title">
-        <div class="panel-heading"><h2 id="command-title">生成コマンド</h2><button id="copy" type="button" class="primary">コピー</button></div>
+        <div class="panel-heading"><h2 id="command-title">生成コマンド</h2><div class="copy-actions"><button id="copy-json" type="button" class="secondary">JSONをコピー</button><button id="copy" type="button" class="primary">コピー</button></div></div>
         <p id="error" class="error" role="alert" hidden></p>
         <textarea id="command" readonly rows="3" spellcheck="false" aria-label="生成されたMinecraftコマンド"></textarea>
+        <textarea id="json-copy-fallback" readonly rows="2" spellcheck="false" aria-label="コピー用JSON" hidden></textarea>
         <div class="encoding"><span>本体色 <code id="body-color">#fe0880</code></span><span>影色 <code id="shadow-color">−194432</code></span><span id="copy-status" role="status"></span></div>
       </section>
 
