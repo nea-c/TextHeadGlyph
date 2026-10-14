@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#edf3fb">
+    <meta name="description" content="Minecraft Java 26.2の頭表示をサイズ・Yオフセットで調整するリソースパックとコマンド生成ツール。">
+    <title>TextHeadGlyph — 頭表示のコマンド生成</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="app.mjs"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./"><span class="brand-icon" aria-hidden="true">▦</span> TextHeadGlyph</a>
+      <span class="version">Java Edition 26.2</span>
+    </header>
+    <main>
+      <section class="intro">
+        <div>
+          <h1>頭の大きさと位置を、<br>思いどおりに。</h1>
+          <p>サイズとYオフセットを選んで、Minecraftのコマンドへ。<br>顔も帽子も影も、同じ位置で描画します。</p>
+        </div>
+        <a class="download" href="downloads/TextHeadGlyph-26.2.zip" download>リソパをダウンロード <span>26.2 / ZIP</span></a>
+      </section>
+
+      <div class="workspace">
+        <section class="controls" aria-labelledby="settings-title">
+          <h2 id="settings-title">表示の設定</h2>
+          <form id="settings" novalidate>
+            <label for="player">MCID</label>
+            <div class="input-row">
+              <input id="player" name="player" value="Alex" maxlength="16" spellcheck="false" autocomplete="off" required>
+              <button type="button" id="load-skin" class="secondary">スキン取得</button>
+            </div>
+            <p class="field-note" id="skin-status" role="status">標準Alexを表示しています。</p>
+
+            <div class="number-label"><label for="size">サイズ</label><span>1〜255</span></div>
+            <div class="input-row measure"><input id="size" name="size" type="number" min="1" max="255" step="1" value="24" required><span>× <output id="size-echo">24</output> GUI単位</span></div>
+            <input id="size-range" type="range" min="1" max="255" value="24" aria-label="サイズのスライダー">
+
+            <div class="number-label"><label for="offset">Yオフセット</label><span>−128〜127</span></div>
+            <div class="input-row measure"><input id="offset" name="offset" type="number" min="-128" max="127" step="1" value="8" required><span id="offset-direction">下へ8</span></div>
+            <input id="offset-range" type="range" min="-128" max="127" value="8" aria-label="Yオフセットのスライダー">
+            <p class="field-note">負で上、正で下。0で元の位置。</p>
+
+            <div class="toggles">
+              <label class="check"><input id="shadow" name="shadow" type="checkbox" checked>影を表示</label>
+              <label class="check"><input id="hat" name="hat" type="checkbox" checked>帽子レイヤーを表示</label>
+            </div>
+            <div class="select-row">
+              <div><label for="mode">表示方法</label><select id="mode" name="mode"><option value="actionbar">Actionbar</option><option value="title">Title</option><option value="subtitle">Subtitle</option><option value="tellraw">Tellraw</option></select></div>
+              <div><label for="target">表示先</label><select id="target" name="target"><option>@a</option><option>@s</option><option>@p</option><option>@r</option></select></div>
+            </div>
+            <button id="reset" type="reset" class="text-button">初期設定に戻す</button>
+          </form>
+        </section>
+
+        <section class="preview-panel" aria-labelledby="preview-title">
+          <div class="panel-heading"><h2 id="preview-title">プレビュー</h2><span>描画倍率1×の目安</span></div>
+          <div class="preview-stage" id="preview-stage">
+            <canvas id="preview" role="img" aria-label="頭のサイズ・位置のプレビュー"></canvas>
+            <span class="zoom-badge" id="zoom-label">表示倍率 4×</span>
+          </div>
+          <div class="preview-footer"><span><i class="legend-square"></i>点線：元の8×8表示</span><span>左下を基準に拡縮</span></div>
+          <div class="skin-actions">
+            <label class="secondary upload" for="skin-file">PNGからスキンを選ぶ<input id="skin-file" type="file" accept="image/png"></label>
+            <button class="text-button" type="button" id="default-skin">標準Alexに戻す</button>
+          </div>
+          <p class="field-note">スキン取得には<a href="https://mc-heads.net/" target="_blank" rel="noopener noreferrer">MCHeads</a>を使用します。PNGはこのブラウザー内で処理します。</p>
+        </section>
+      </div>
+
+      <section class="command-panel" aria-labelledby="command-title">
+        <div class="panel-heading"><h2 id="command-title">生成コマンド</h2><button id="copy" type="button" class="primary">コピー</button></div>
+        <p id="error" class="error" role="alert" hidden></p>
+        <textarea id="command" readonly rows="3" spellcheck="false" aria-label="生成されたMinecraftコマンド"></textarea>
+        <div class="encoding"><span>本体色 <code id="body-color">#fe1888</code></span><span>影色 <code id="shadow-color">−190328</code></span><span id="copy-status" role="status"></span></div>
+      </section>
+
+      <section class="guide">
+        <h2>ゲームで使うには</h2>
+        <ol><li>ZIPを<code>resourcepacks</code>フォルダーに入れ、パックを有効にします。</li><li>コマンドをコピーして、Minecraftで実行します。</li></ol>
+        <p>プレビューは描画倍率1×が基準です。チャットの倍率やTitleの拡大がある場合は表示サイズが変わります。文字送り・行間は変わりません。他の<code>text.vsh</code>を書き換えるパックと併用すると競合します。</p>
+        <details><summary>色の仕組みと、影の指定</summary><p>本体は<code>#FEssyy</code>、影はARGBの<code>0xFFFDssyy</code>を使います。<code>ss</code>がサイズ、<code>yy</code>がYオフセット＋128です。64×64のスキンと顔・帽子のUV条件内でだけ解釈します。本体を白、影をRGB各63/255へ戻し、アルファは維持します。</p><p>影なしは<code>shadow_color:0</code>。通常文字のフォントアトラスは対象外です。プレビューはゲーム内のクリッピングや描画順まで再現するものではありません。</p></details>
+      </section>
+    </main>
+    <footer><a href="https://github.com/nea-c/TextHeadGlyph">TextHeadGlyph on GitHub</a><span>MinecraftはMojang Studiosの商標です。本プロジェクトは非公式です。</span></footer>
+  </body>
+</html>
