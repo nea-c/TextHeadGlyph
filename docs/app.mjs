@@ -132,7 +132,7 @@ function draw() {
   const { size, offset, shadow } = lastSettings;
   // Auto-fit both the original glyph and the transformed head, including shadow.
   const textWidth = referenceText ? referenceText.width : 40;
-  const left = -textWidth - 4;
+  const left = -textWidth;
   const right = Math.max(8, size + (shadow ? 1 : 0));
   const top = Math.min(-8, offset - size);
   const bottom = Math.max(0, offset + (shadow ? 1 : 0));
