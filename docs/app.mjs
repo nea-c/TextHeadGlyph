@@ -28,7 +28,7 @@ async function loadReferenceText() {
   atlasCtx.drawImage(image, 0, 0);
   const cell = image.naturalWidth / 16;
   const scale = 8 / cell;
-  const chars = [...'ABC 123'];
+  const chars = [...'aA1 '];
   const glyphs = chars.map(char => {
     const code = char.charCodeAt(0);
     const x = (code % 16) * cell;
