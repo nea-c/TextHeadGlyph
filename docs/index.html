@@ -6,8 +6,8 @@
     <meta name="theme-color" content="#111822">
     <meta name="description" content="Minecraft Java 26.2の頭表示をサイズ・Yオフセットで調整するリソースパックとコマンド生成ツール。">
     <title>TextHeadGlyph — 頭表示のコマンド生成</title>
-    <link rel="stylesheet" href="styles.css?v=github-icon-9">
-    <script type="module" src="app.mjs?v=hat-default-10"></script>
+    <link rel="stylesheet" href="styles.css?v=decode-11">
+    <script type="module" src="app.mjs?v=decode-11"></script>
   </head>
   <body>
     <main>
@@ -51,6 +51,18 @@
             </div>
             <button id="reset" type="reset" class="text-button">初期設定に戻す</button>
           </form>
+          <details class="decode-panel">
+            <summary>色からサイズ・Yオフセットを復元</summary>
+            <form id="decode-form">
+              <label for="decode-color">本体色・影色</label>
+              <div class="input-row">
+                <input id="decode-color" placeholder="#fe0880" spellcheck="false" autocomplete="off" aria-describedby="decode-note decode-status">
+                <button type="submit" class="secondary">反映</button>
+              </div>
+              <p class="field-note" id="decode-note">#fe0880 / 0xfffd0880 / -194432 に対応。サイズとYオフセットのみ反映します。</p>
+              <p class="field-note" id="decode-status" role="status"></p>
+            </form>
+          </details>
         </section>
 
         <section class="preview-panel" aria-labelledby="preview-title">

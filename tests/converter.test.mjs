@@ -1,6 +1,26 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { generate } from '../docs/converter.mjs';
+import { generate, decodeColor } from '../docs/converter.mjs';
+
+test('body and shadow colors restore size and offset across all byte values', () => {
+  for (let size = 1; size <= 255; size++) {
+    for (let offset = -128; offset <= 127; offset++) {
+      const encoded = generate({ size, offset });
+      const expected = { size, offset };
+      assert.deepEqual(decodeColor(encoded.color), expected);
+      assert.deepEqual(decodeColor(encoded.shadowColor), expected);
+      assert.deepEqual(decodeColor(encoded.shadowHex), expected);
+    }
+  }
+});
+
+test('decoder accepts uppercase, whitespace and legacy color, rejects unrelated colors', () => {
+  assert.deepEqual(decodeColor(' #FE0880 '), { size: 8, offset: 0 });
+  assert.deepEqual(decodeColor('#fffffe'), { size: 24, offset: 0 });
+  for (const value of ['', '#ffffff', '#fe0080', '0', '4294967296', '-2147483649', '#fe0880oops', '1.5']) {
+    assert.throws(() => decodeColor(value));
+  }
+});
 
 test('default: Alex, 8x8, Y0, tellraw, matching shadow bytes', () => {
   assert.equal(generate().command, '/tellraw @a {player:"Alex",color:"#fe0880",shadow_color:-194432}');

@@ -1,4 +1,4 @@
-import { generate } from './converter.mjs?v=hat-default-10';
+import { generate, decodeColor } from './converter.mjs?v=decode-11';
 
 const $ = id => document.getElementById(id);
 const form = $('settings');
@@ -224,6 +224,20 @@ async function setSkin(src, message) {
 }
 
 form.addEventListener('submit', event => event.preventDefault());
+$('decode-form').addEventListener('submit', event => {
+  event.preventDefault();
+  try {
+    const { size, offset } = decodeColor($('decode-color').value);
+    $('size').value = size;
+    $('offset').value = offset;
+    update();
+    $('decode-status').className = 'field-note';
+    $('decode-status').textContent = `サイズ ${size}、Yオフセット ${offset} を反映しました。`;
+  } catch (error) {
+    $('decode-status').className = 'field-note error';
+    $('decode-status').textContent = error.message;
+  }
+});
 form.addEventListener('input', update);
 form.addEventListener('change', update);
 $('size-range').addEventListener('input', () => { $('size').value = $('size-range').value; update(); });

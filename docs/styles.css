@@ -100,6 +100,9 @@ textarea { display: block; width: 100%; resize: vertical; background: #141c28; c
 .guide li { padding-left: 5px; margin: 6px 0; }
 details { border-top: 1px solid #c8d8ef; padding-top: 16px; margin-top: 22px; }
 summary { cursor: pointer; color: var(--ink); }
+.decode-panel { border-color: var(--line); font-size: 12px; }
+.decode-panel form { margin-top: 16px; }
+.decode-panel .field-note { margin-bottom: 0; }
 footer { padding: 20px 32px 32px; font-size: 13px; color: var(--muted); }
 footer span { display: block; margin-top: 8px; font-size: 11px; }
 @media (max-width: 760px) {
