@@ -32,7 +32,7 @@ Minecraft JE 26.2
 
 ## 使用アセット
 
-プレビューにはMojang Studiosの標準Alexスキン・バニラフォントを使用しています。  
+プレビューにはMojang Studiosの標準Alexスキン・バニラフォント・タイトル画面のパノラマを使用しています。
 MCIDからのスキン取得には[MCHeads](https://mc-heads.net/)を使用しています。
 
 

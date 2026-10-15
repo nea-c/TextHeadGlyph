@@ -73,7 +73,10 @@ input[type="range"] { width: 100%; margin: 14px 0 0; accent-color: var(--accent)
 .preview-panel { padding: 24px; display: flex; flex-direction: column; min-width: 0; }
 .panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
 .panel-heading > span { color: var(--muted); font-size: 12px; }
-.preview-stage { position: relative; width: 100%; min-height: 340px; flex: 1; border: 1px solid var(--line); border-radius: 8px; background-color: #2a3544; background-image: linear-gradient(#ffffff08 1px, transparent 1px), linear-gradient(90deg, #ffffff08 1px, transparent 1px); background-size: 16px 16px; overflow: hidden; }
+.preview-stage { position: relative; isolation: isolate; width: 100%; min-height: 340px; flex: 1; border: 1px solid var(--line); border-radius: 8px; background: #717a80; overflow: hidden; }
+/* Lift dark scenery into midtones so both white glyphs and dark shadows remain visible. */
+.preview-stage::before { content: ''; position: absolute; inset: -6px; z-index: -2; background: url('assets/panorama.png') center / cover; filter: saturate(.45) blur(2px); }
+.preview-stage::after { content: ''; position: absolute; inset: 0; z-index: -1; background: #a0a8ae88; }
 canvas { display: block; width: 100%; height: 100%; position: absolute; inset: 0; }
 .zoom-badge { position: absolute; right: 12px; top: 12px; font-size: 11px; color: var(--muted); background: #141c28e6; padding: 5px 8px; border-radius: 4px; }
 .preview-footer { display: flex; gap: 12px; justify-content: space-between; font-size: 11px; color: var(--muted); margin: 14px 0 22px; flex-wrap: wrap; }
